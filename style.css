@@ -1,0 +1,105 @@
+/* Estilo global para o corpo da página */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #343a40;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #343a40; /* Fundo escuro */
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #ffc107; /* Cor de destaque quando o link é hover */
+}
+
+/* Estilo das seções */
+section {
+    padding: 60px 0;
+}
+
+.bg-light {
+    background-color: #f8f9fa !important;
+}
+
+/* Seção de Contato */
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para os títulos */
+h1, h2 {
+    color: #343a40;
+    font-weight: bold;
+}
+
+/* Ajuste do botão */
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+/* Rodapé */
+footer {
+    background-color: #343a40;
+    color: white;
+    font-size: 1rem;
+    padding: 20px 0;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar-brand {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+    }
+}
