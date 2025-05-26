@@ -25,7 +25,7 @@ Este é um site institucional para a Oficina Monobloco, desenvolvido como exempl
 
 ## Créditos
 
-Desenvolvido por [Seu Nome].  
+Desenvolvido por [Gabriel].  
 Imagens e textos são exemplos e podem ser substituídos conforme a necessidade do projeto.
 
 ---
