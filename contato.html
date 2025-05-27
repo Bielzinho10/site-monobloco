@@ -52,6 +52,41 @@
                             <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
                         </div>
                         <div class="mb-3">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="tel" class="form-control" id="telefone" placeholder="(31) 99999-9999" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="placa" class="form-label">Placa do Veículo</label>
+                            <input type="text" class="form-control" id="placa" placeholder="ABC-1234" maxlength="8">
+                        </div>
+                        <div class="mb-3">
+                            <label for="modelo" class="form-label">Modelo do Veículo</label>
+                            <input type="text" class="form-control" id="modelo" placeholder="Ex: Gol 1.6 2015">
+                        </div>
+                        <div class="mb-3">
+                            <label for="opcao" class="form-label">O que deseja?</label>
+                            <select class="form-select" id="opcao" required onchange="mostrarCampoData()">
+                                <option value="" disabled selected>Selecione uma opção</option>
+                                <option value="orcamento">Fazer Orçamento</option>
+                                <option value="agendar">Agendar um Dia</option>
+                            </select>
+                        </div>
+                        <div class="mb-3" id="campoData" style="display: none;">
+                            <label for="dataAgendamento" class="form-label">Escolha o dia do agendamento</label>
+                            <input type="date" class="form-control mb-2" id="dataAgendamento" onchange="atualizarHorarios()">
+                            <label for="horaAgendamento" class="form-label">Escolha o horário</label>
+                            <select class="form-select" id="horaAgendamento">
+                                <option value="" disabled selected>Selecione o horário</option>
+                            </select>
+                            <label for="defeitoCarro" class="form-label mt-2">Descreva o defeito do carro</label>
+                            <input type="text" class="form-control" id="defeitoCarro" placeholder="Ex: Barulho ao frear">
+                            <div class="mt-3">
+                                <a href="#" id="linkZap" target="_blank" class="btn btn-success w-100">
+                                    <i class="fab fa-whatsapp"></i> Agendar pelo WhatsApp
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-3">
                             <label for="mensagem" class="form-label">Mensagem</label>
                             <textarea class="form-control" id="mensagem" rows="5" placeholder="Digite sua mensagem" required></textarea>
                         </div>
@@ -89,5 +124,74 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script>
+    function mostrarCampoData() {
+        var opcao = document.getElementById('opcao').value;
+        var campoData = document.getElementById('campoData');
+        var data = document.getElementById('dataAgendamento');
+        var hora = document.getElementById('horaAgendamento');
+        var defeito = document.getElementById('defeitoCarro');
+        if (opcao === 'agendar') {
+            campoData.style.display = 'block';
+            data.required = true;
+            hora.required = true;
+            defeito.required = true;
+        } else {
+            campoData.style.display = 'none';
+            data.required = false;
+            hora.required = false;
+            defeito.required = false;
+        }
+    }
+
+    function atualizarHorarios() {
+        var dataInput = document.getElementById('dataAgendamento');
+        var horaSelect = document.getElementById('horaAgendamento');
+        var dataSelecionada = new Date(dataInput.value);
+        var opcoes = [];
+        if (!dataInput.value) {
+            horaSelect.innerHTML = '<option value="" disabled selected>Selecione o horário</option>';
+            return;
+        }
+        var diaSemana = dataSelecionada.getDay(); // 0 = domingo, 6 = sábado
+        var horaInicio = 8;
+        var horaFim = (diaSemana === 6) ? 12 : 18; // sábado até 12h, outros dias até 18h
+        horaSelect.innerHTML = '<option value="" disabled selected>Selecione o horário</option>';
+        for (var h = horaInicio; h < horaFim; h++) {
+            opcoes.push(h.toString().padStart(2, '0') + ':00');
+            opcoes.push(h.toString().padStart(2, '0') + ':30');
+        }
+        if (horaFim > horaInicio) {
+            opcoes.push(horaFim.toString().padStart(2, '0') + ':00');
+        }
+        opcoes.forEach(function(horario) {
+            var option = document.createElement('option');
+            option.value = horario;
+            option.textContent = horario;
+            horaSelect.appendChild(option);
+        });
+        atualizarLinkZap();
+    }
+
+    document.getElementById('horaAgendamento').addEventListener('change', atualizarLinkZap);
+    document.getElementById('defeitoCarro').addEventListener('input', atualizarLinkZap);
+    document.getElementById('dataAgendamento').addEventListener('change', atualizarLinkZap);
+
+    function atualizarLinkZap() {
+        var data = document.getElementById('dataAgendamento').value;
+        var hora = document.getElementById('horaAgendamento').value;
+        var defeito = document.getElementById('defeitoCarro').value;
+        var link = document.getElementById('linkZap');
+        if (data && hora) {
+            var dataFormatada = data.split('-').reverse().join('/');
+            var texto = `Olá! Gostaria de agendar um serviço para o dia ${dataFormatada} às ${hora}. Defeito: ${defeito}`;
+            link.href = "https://wa.me/5531986055715?text=" + encodeURIComponent(texto);
+            link.classList.remove('disabled');
+        } else {
+            link.href = "#";
+            link.classList.add('disabled');
+        }
+    }
+    </script>
 </body>
 </html>
