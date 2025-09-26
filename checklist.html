@@ -140,6 +140,7 @@
   </div>
 
   <button onclick="gerarChecklist()">Salvar Checklist</button>
+  <button onclick="imprimirChecklist()">Imprimir Checklist</button>
 
   <div id="resultado"></div>
 
@@ -176,6 +177,10 @@
         <h3>Observações:</h3>
         <p>${observacoes}</p>
       `;
+    }
+
+    function imprimirChecklist() {
+      window.print();
     }
   </script>
 
