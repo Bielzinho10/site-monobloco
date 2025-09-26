@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist Oficina Mecânica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .grupo {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .grupo h2 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #27ae60;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+    }
+    input[type="text"], input[type="date"], input[type="number"], textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    input[type="checkbox"] {
+      margin-right: 6px;
+    }
+    textarea {
+      height: 70px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      background: #27ae60;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2ecc71;
+    }
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: #ecf0f1;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Checklist Oficina Mecânica</h1>
+
+  <!-- Dados do cliente -->
+  <div class="grupo">
+    <h2>Dados do Cliente / Veículo</h2>
+    <label>Cliente: <input type="text" id="cliente"></label>
+    <label>Telefone: <input type="text" id="telefone"></label>
+    <label>Veículo: <input type="text" id="veiculo"></label>
+    <label>Ano: <input type="text" id="ano"></label>
+    <label>Cor: <input type="text" id="cor"></label>
+    <label>Placa: <input type="text" id="placa"></label>
+    <label>KM Entrada: <input type="number" id="kmEntrada"></label>
+    <label>KM Saída: <input type="number" id="kmSaida"></label>
+    <label>Data: <input type="date" id="data"></label>
+  </div>
+
+  <!-- Motor -->
+  <div class="grupo">
+    <h2>Motor</h2>
+    <label><input type="checkbox" value="Óleo do motor"> Óleo do motor</label>
+    <label><input type="checkbox" value="Vazamentos"> Vazamentos</label>
+    <label><input type="checkbox" value="Correia de distribuição"> Correia de distribuição</label>
+    <label><input type="checkbox" value="Filtros"> Filtros</label>
+  </div>
+
+  <!-- Freios -->
+  <div class="grupo">
+    <h2>Freios</h2>
+    <label><input type="checkbox" value="Pastilhas e discos"> Pastilhas e discos</label>
+    <label><input type="checkbox" value="Fluido de freio"> Fluido de freio</label>
+    <label><input type="checkbox" value="Freio de mão"> Freio de mão</label>
+  </div>
+
+  <!-- Suspensão -->
+  <div class="grupo">
+    <h2>Suspensão</h2>
+    <label><input type="checkbox" value="Amortecedores"> Amortecedores</label>
+    <label><input type="checkbox" value="Pivôs / Buchas"> Pivôs / Buchas</label>
+    <label><input type="checkbox" value="Coxins / Molas"> Coxins / Molas</label>
+  </div>
+
+  <!-- Pneus -->
+  <div class="grupo">
+    <h2>Pneus</h2>
+    <label><input type="checkbox" value="Estado dos pneus"> Estado dos pneus</label>
+    <label><input type="checkbox" value="Estepe"> Estepe</label>
+    <label><input type="checkbox" value="Pressão dos pneus"> Pressão dos pneus</label>
+  </div>
+
+  <!-- Acessórios -->
+  <div class="grupo">
+    <h2>Acessórios / Equipamentos</h2>
+    <label><input type="checkbox" value="Rádio / Multimídia"> Rádio / Multimídia</label>
+    <label><input type="checkbox" value="Alto-falantes"> Alto-falantes</label>
+    <label><input type="checkbox" value="Tapetes"> Tapetes</label>
+    <label><input type="checkbox" value="Extintor"> Extintor</label>
+    <label><input type="checkbox" value="Triângulo"> Triângulo</label>
+    <label><input type="checkbox" value="Macaco"> Macaco</label>
+    <label><input type="checkbox" value="Chave de rodas"> Chave de rodas</label>
+    <label><input type="checkbox" value="Documentos"> Documentos</label>
+    <label><input type="checkbox" value="Chaves do carro"> Chaves do carro</label>
+  </div>
+
+  <!-- Observações -->
+  <div class="grupo">
+    <h2>Observações</h2>
+    <textarea id="observacoes" placeholder="Escreva observações aqui..."></textarea>
+  </div>
+
+  <button onclick="gerarChecklist()">Salvar Checklist</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function gerarChecklist() {
+      let cliente = document.getElementById("cliente").value;
+      let telefone = document.getElementById("telefone").value;
+      let veiculo = document.getElementById("veiculo").value;
+      let ano = document.getElementById("ano").value;
+      let cor = document.getElementById("cor").value;
+      let placa = document.getElementById("placa").value;
+      let kmEntrada = document.getElementById("kmEntrada").value;
+      let kmSaida = document.getElementById("kmSaida").value;
+      let data = document.getElementById("data").value;
+      let observacoes = document.getElementById("observacoes").value;
+
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      let selecionados = [];
+
+      checkboxes.forEach(cb => {
+        selecionados.push(cb.value + (cb.checked ? " ✅" : " ❌"));
+      });
+
+      document.getElementById("resultado").innerHTML = `
+        <h2>Resultado do Checklist</h2>
+        <p><b>Cliente:</b> ${cliente}</p>
+        <p><b>Telefone:</b> ${telefone}</p>
+        <p><b>Veículo:</b> ${veiculo} - ${ano} - ${cor}</p>
+        <p><b>Placa:</b> ${placa}</p>
+        <p><b>KM Entrada:</b> ${kmEntrada} | <b>KM Saída:</b> ${kmSaida}</p>
+        <p><b>Data:</b> ${data}</p>
+        <h3>Itens:</h3>
+        <p>${selecionados.join("<br>")}</p>
+        <h3>Observações:</h3>
+        <p>${observacoes}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
